@@ -32,6 +32,7 @@ button{
     cursor: pointer;
     width: 50%;
     border-radius: 5px;
+    margin-top: 15px;
 }
 
 #btn-submit:hover{
@@ -45,3 +46,8 @@ button{
     cursor: pointer;
 }
 
+img{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
