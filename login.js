@@ -1,12 +1,37 @@
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDqij1SpGmliK3dHvQfcS06G4v3p6LOIZI",
+    authDomain: "bananagame-a928d.firebaseapp.com",
+    databaseURL: "https://bananagame-a928d-default-rtdb.firebaseio.com",
+    projectId: "bananagame-a928d",
+    storageBucket: "bananagame-a928d.firebasestorage.app",
+    messagingSenderId: "789797675924",
+    appId: "1:789797675924:web:efd5056f7373888500a581",
+    measurementId: "G-FVL7B019DY"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const db = getDatabase(app);
+
 const formTitle = document.getElementById("title-form");
 const authForm = document.getElementById("auth-form");
-const toggleBtn = document.getElementById("btn-toggle");
+const toggleBtn = document.getElementById("toggle-btn");
 const submitBtn = document.getElementById("btn-submit");
 const usernameField = document.getElementById("username");
+const emailField = document.getElementById("email");
+const passwordField = document.getElementById("password");
+const googleLoginBtn = document.getElementById("login-google");
 
 let isSignup = false;
 
-toggleBtn.addEventListener("click", () => {
+toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     isSignup = !isSignup;
     formTitle.textContent = isSignup ? "Sign Up" : "Login";
     submitBtn.textContent = isSignup ? "Sign Up" : "Login";
@@ -14,7 +39,58 @@ toggleBtn.addEventListener("click", () => {
     usernameField.style.display = isSignup ? "block" : "none";
 });
 
-authForm.addEventListener("submit", (e) => {
+authForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    alert(isSignup ? "Sign up Successful" : "Login Successful");
+
+    const username = usernameField.value.trim();
+    const email = emailField.value.trim();
+    const password = passwordField.value.trim();
+
+    if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+    }
+
+    try{
+        if(isSignup){
+            const userCredential = await createUserWithEmailAndPassword (auth, email, password);
+            const user = userCredential.user;
+
+            await set(ref(db, 'users/' + user.uid), {
+                username: username || "Anonymous",
+                email: email,
+                password: password
+            });
+            
+            alert("Sign up successful...!!");
+            console.log("User signed up:", user);
+
+        }else{
+            const userCredential = await signInWithEmailAndPassword(auth,email,password);
+            alert("Login Successful..!!");
+            console.log ("User logged in: ", userCredential.user);
+        }
+    } catch (error) {
+        alert("Error: " + error.message);
+        console.error("Authentication Error: ", error);
+    }
+});
+
+googleLoginBtn.addEventListener("click", async () => {
+    try{
+        const result = await signInWithPopup(auth,provider);
+        const user = result.user;
+
+        await set(ref(db, 'user/' + user.uid),{
+            username: user.displayName || "Google User",
+            email: user.email
+        });
+
+        alert("Google login successful..!!");
+        console.log("User log in google: ",user);
+
+    }catch (error){
+        alert("Google login error: "+error.message);
+        console.error("Google login error: ",error);
+    }
 });

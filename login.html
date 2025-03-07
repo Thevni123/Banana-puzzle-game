@@ -3,24 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Login & Signup</title>
+        <title>Signup & Login</title>
         <link rel="stylesheet" href="login.css">
     </head>
     <body>
         <div class="container">
             <h2 id="title-form">Login</h2>
             <form id="auth-form">
+                <input type="text" id="username" placeholder="Username" style="display: none;">
                 <input type="email" id="email" placeholder="Email" required>
                 <input type="password" id="password" placeholder="Password" required>
-                <input type="text" id="username" placeholder="Username" style="display: none;">
+
                 <button type="submit" id="btn-submit">Login</button>
-            </form>
+
             <p>
-                <button class="btn-toggle" id="btn-toggle">Don't have account? Sign Up </button>
+                <a href="#" class="toggle-btn" id="toggle-btn">Don't have account? Sign Up </a>
             </p>
+            </form>
+            
             <p>-----or-----</p>
-            <img src="./image/Google_Icons-09-512.webp">
-            <script src="login.js"></script>
+
+            <button id="login-google"><img src="./image/Google_Icons-09-512.webp"></button>
+            
+            <script type="module" src="login.js"></script>
         </div>
     </body>
 </html>

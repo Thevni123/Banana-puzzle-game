@@ -25,7 +25,7 @@ input{
 }
 
 button{
-    background:  #28a745;
+    background:  #054c15;
     color: white;
     padding: 10px;
     border: none;
@@ -36,7 +36,7 @@ button{
 }
 
 #btn-submit:hover{
-    background-color: #6c944a;
+    background-color: #516e37;
 }
 
 .btn-toggle{
@@ -47,7 +47,12 @@ button{
 }
 
 img{
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     cursor: pointer;
+}
+
+#login-google{
+    background: none;
+    margin-top: 0px;
 }
