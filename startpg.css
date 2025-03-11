@@ -1,0 +1,47 @@
+body{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: url(./image/image2.webp) no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1{
+    color: #032405;
+    text-shadow: 3px 3px 10px black;
+    font-size: 3em;
+}
+
+.controls{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn{
+    width: 180px;
+    height: 60px;
+    background: linear-gradient(45deg, #172117, #305f33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    box-shadow: 0px 5px 15px  rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active{
+    transform: scale(1);
+}
