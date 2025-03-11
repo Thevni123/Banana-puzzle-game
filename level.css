@@ -1,0 +1,46 @@
+body{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: url("./image/image2.webp") no-repeat center center/cover;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1{
+    color: #032405;
+    text-shadow: 3px 3px 10px black;
+    font-size: 3em;
+}
+
+.levels{
+    display: flex;
+    gap: 20px;
+}
+
+.level{
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, #090d09, #58f05f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.level:hover{
+    transform: scale(1.2);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.level:active{
+    transform: scale(1.1);
+}
