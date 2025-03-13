@@ -70,6 +70,9 @@ authForm.addEventListener("submit", async (e) => {
             alert("Login Successful..!!");
             console.log ("User logged in: ", userCredential.user);
         }
+
+        window.location.href = "startpg.html";
+
     } catch (error) {
         alert("Error: " + error.message);
         console.error("Authentication Error: ", error);
@@ -88,6 +91,8 @@ googleLoginBtn.addEventListener("click", async () => {
 
         alert("Google login successful..!!");
         console.log("User log in google: ",user);
+
+        window.location.href = "startpg.html";
 
     }catch (error){
         alert("Google login error: "+error.message);
