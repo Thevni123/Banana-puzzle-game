@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDqij1SpGmliK3dHvQfcS06G4v3p6LOIZI",
@@ -115,6 +115,15 @@ function fetchPuzzle(){
 }
 
 function checkAnswer() {
+
+    const user = auth.currentUser;
+    if (!user) {
+        alert("You need to be logged in to save your score.");
+        return;
+    }
+
+    const userRef = ref(db, 'users/' + user.uid);
+
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
 
@@ -133,6 +142,18 @@ function checkAnswer() {
         clearInterval(timer);
         score += 10;
         document.getElementById("score").textContent = `Score: ${score}`;
+
+        get(userRef)
+            .then((snapshot) => {
+                let totalScore = score;
+                if (snapshot.exists() && snapshot.val().score !== undefined) {
+                    totalScore += snapshot.val().score; // Add previous total score
+                }
+
+                return update(userRef, { score: totalScore });
+            })
+            .then(() => console.log("Total score updated successfully"))
+            .catch((error) => console.error("Error updating score:", error));
 
         monkeyJumpStep++;
 
