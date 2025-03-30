@@ -4,7 +4,17 @@ function startGame() {
 }
 
 function leaveGame(){
-    if(confirm('Are you sure you wany to leave?')) {
+    if(confirm('Are you sure you want to leave?')) {
         window.close();
     }
+}
+
+function userProfile() {
+    window.location.href = 'profile.html';
+    alert(`Open User Profile...!!`);
+}
+
+function leaderBoard() {
+    window.location.href = 'leaderboard.html';
+    alert(`Open Leaderboard...!!`);
 }

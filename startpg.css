@@ -12,6 +12,7 @@ h1{
     color: #032405;
     text-shadow: 3px 3px 10px black;
     font-size: 3em;
+    text-align: center;
 }
 
 .controls{
@@ -26,6 +27,7 @@ h1{
     background: linear-gradient(45deg, #172117, #305f33);
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
     font-size: 22px;
     font-weight: bold;
