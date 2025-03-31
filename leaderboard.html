@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
-    <link rel="stylesheet" href="leaderboard.css">
-    <script type="module" src="leaderboard.js"></script>
-</head>
-<body>
-    <div class="leaderboard-container">
-        <h1>🏆 Leaderboard 🏆</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-body">
-                <!-- Scores will be dynamically inserted here -->
-            </tbody>
-        </table>
-        <button onclick="window.location.href='gamepg.html'">Back to Game</button>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leaderboard</title>
+        <link rel="stylesheet" href="leaderboard.css">
+    </head>
 
-    <script type="module" src="leaderboard.js"></script>
+    <body>
 
-</body>
+        <div class="container">
+            <h1>🍌 Banana Math Quiz Game 🍌</h1>
+
+            <div id="leaderboard-container">
+                <h2>🏆 Leaderboard 🏆</h2>
+                <table id="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        <tr><td colspan="3">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="backToMenu">Back To Menu</button>
+            <button id="changelevel">Change Level</button>
+
+        </div>
+
+            <script type="module" src="leaderboard.js"></script>
+
+    </body>
 </html>
