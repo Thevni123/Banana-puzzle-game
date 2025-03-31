@@ -3,3 +3,6 @@ function startGame(level){
     window.location.href = `gamepg.html?level=${level}`;
 }
 
+document.getElementById("backToMenu").addEventListener("click",() => {
+    window.location.href = "startpg.html";
+});
