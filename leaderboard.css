@@ -1,48 +1,62 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #ffcc33, #ff6666);
+body{
+    font-family: Arial, sans-serif;
     text-align: center;
-    padding: 20px;
+    background-color: #c9f1e5;
+    margin: 0;
+    padding: 0;
 }
 
-.leaderboard-container {
+.container{
     max-width: 600px;
     margin: 50px auto;
-    background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-    font-size: 2em;
-    color: #ff6600;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+h1{
+    color: #175007;
 }
 
-table {
+#leaderboard-container{
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#leaderboard-table{
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: auto;
 }
 
-table th, table td {
-    padding: 10px;
+#leaderboard-table th, #leaderboard-table td{
     border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
 
-table th {
-    background-color: #ff6600;
+#leaderboard-table th{
+    background-color: #146713;
     color: white;
-    font-size: 1.2em;
 }
 
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #146713;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+button:hover{
+    transform: scale(1.1);
 }
 
-table tr:hover {
-    background-color: #ffcc99;
-    transform: scale(1.02);
-    transition: 0.3s;
+button:active{
+    transform: scale(1);
 }
