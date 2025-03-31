@@ -6,6 +6,8 @@ body{
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
 h1{
@@ -43,4 +45,99 @@ h1{
 
 .level:active{
     transform: scale(1.1);
+}
+
+#backToMenu{
+    width: 180px;
+    height: 60px;
+    background: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: rgb(4, 72, 7) solid 1px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    color: rgb(9, 9, 9);
+    margin-top: 30px;
+}
+
+#backToMenu:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#backToMenu:active{
+    transform: scale(1);
+}
+
+.monkey img {
+    width: 200px !important; 
+    height: 190px;
+}
+
+.monkey {
+    position: absolute;
+    bottom: 10px; 
+    width: 30px;  
+    height: auto;
+    animation-timing-function: ease-in-out;
+}
+
+.monkey1 {
+    animation: runMonkey1 12s linear infinite, jumpMonkey 3s ease-in-out infinite;
+}
+
+@keyframes runMonkey1 {
+    0% {
+        left: -30px;
+        transform: scaleX(1);
+    }
+    50% {
+        left: calc(100% - 30px); 
+        transform: scaleX(1);
+    }
+    51% {
+        transform: scaleX(-1);
+    }
+    100% {
+        left: -30px;
+        transform: scaleX(-1);
+    }
+}
+
+.monkey2 {
+    animation: runMonkey2 12s linear infinite, jumpMonkey 3s ease-in-out infinite;
+}
+
+@keyframes runMonkey2 {
+    0% {
+        left: 100%;
+        transform: scaleX(-1);
+    }
+    50% {
+        left: calc(-30px); 
+        transform: scaleX(-1);
+    }
+    51% {
+        transform: scaleX(1);
+    }
+    100% {
+        left: 100%;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes jumpMonkey {
+    0%, 100% {
+        bottom: 10px;
+    }
+    50% {
+        bottom: 20px; 
+    }
 }
