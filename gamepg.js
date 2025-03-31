@@ -115,7 +115,6 @@ function fetchPuzzle(){
 }
 
 function checkAnswer() {
-
     const user = auth.currentUser;
     if (!user) {
         alert("You need to be logged in to save your score.");
@@ -127,7 +126,7 @@ function checkAnswer() {
     const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
 
-    if(isNaN(userAnswer)) {
+    if (isNaN(userAnswer)) {
         feedbackEl.textContent = "Please enter a valid number!";
         feedbackEl.style.color = "red";
         return;
@@ -135,8 +134,8 @@ function checkAnswer() {
 
     let monkey = document.getElementById("monkey");
 
-    if(userAnswer === correctSolution){
-        feedbackEl.textContent = "✅ Correct! click 'Next Question'";
+    if (userAnswer === correctSolution) {
+        feedbackEl.textContent = "✅ Correct! Click 'Next Question'";
         feedbackEl.style.color = "darkgreen";
         document.getElementById("nextButton").style.display = "inline";
         clearInterval(timer);
@@ -145,29 +144,31 @@ function checkAnswer() {
 
         get(userRef)
             .then((snapshot) => {
-                let totalScore = score;
+                let previousScore = 0;
                 if (snapshot.exists() && snapshot.val().score !== undefined) {
-                    totalScore += snapshot.val().score; // Add previous total score
+                    previousScore = snapshot.val().score; 
                 }
+
+                let totalScore = previousScore + 10; 
 
                 return update(userRef, { score: totalScore });
             })
-            .then(() => console.log("Total score updated successfully"))
+            .then(() => console.log("Score updated successfully"))
             .catch((error) => console.error("Error updating score:", error));
 
         monkeyJumpStep++;
 
-        if(monkeyJumpStep <= 5) {
+        if (monkeyJumpStep <= 5) {
             monkey.style.bottom = `${monkeyJumpStep * 20}px`;
             monkey.style.left = `${monkeyJumpStep * 15}%`;
         }
 
-        if(monkeyJumpStep === 5){
+        if (monkeyJumpStep === 5) {
             setTimeout(() => {
-                feedbackEl.textContent = "🎉 Monkey reached the bananas! well done";
+                feedbackEl.textContent = "🎉 Monkey reached the bananas! Well done!";
             }, 500);
         }
-    }else{
+    } else {
         feedbackEl.textContent = "❌ Wrong answer! The monkey falls!";
         feedbackEl.style.color = "red";
         monkey.style.bottom = "0px";
