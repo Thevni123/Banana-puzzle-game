@@ -1,6 +1,6 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -52,8 +52,11 @@ authForm.addEventListener("submit", async (e) => {
     }
 
     try{
+
+        let userCredential;
+
         if(isSignup){
-            const userCredential = await createUserWithEmailAndPassword (auth, email, password);
+            userCredential = await createUserWithEmailAndPassword (auth, email, password);
             const user = userCredential.user;
 
             await set(ref(db, 'users/' + user.uid), {
@@ -66,10 +69,12 @@ authForm.addEventListener("submit", async (e) => {
             console.log("User signed up:", user);
 
         }else{
-            const userCredential = await signInWithEmailAndPassword(auth,email,password);
+            userCredential = await signInWithEmailAndPassword(auth,email,password);
             alert("Login Successful..!!");
             console.log ("User logged in: ", userCredential.user);
         }
+
+        sessionStorage.setItem("user",JSON.stringify(userCredential.user));
 
         window.location.href = "startpg.html";
 
@@ -92,10 +97,19 @@ googleLoginBtn.addEventListener("click", async () => {
         alert("Google login successful..!!");
         console.log("User log in google: ",user);
 
+        sessionStorage.setItem("user", JSON.stringify(user));
+
         window.location.href = "startpg.html";
 
     }catch (error){
         alert("Google login error: "+error.message);
         console.error("Google login error: ",error);
+    }
+});
+
+onAuthStateChanged(auth, (user) => {
+    if(user){
+        console.log("User is already logged in:", user.email);
+        sessionStorage.setItem("user", JSON.stringify(user));
     }
 });
