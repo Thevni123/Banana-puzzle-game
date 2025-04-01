@@ -64,18 +64,20 @@ authForm.addEventListener("submit", async (e) => {
                 password: password
             });
             
-            alert("Sign up successful...!!");
-            console.log("User signed up:", user);
+            alert("Sign up successful. Please login");
+            isSignup = false;
+            formTitle.textContent = "Login";
+            submitBtn.textContent = "Login";
+            toggleBtn.textContent = "Don't have an account? Sign up";
+            usernameField.style.display = "none";
+            return;
 
         }else{
             userCredential = await signInWithEmailAndPassword(auth,email,password);
             alert("Login Successful..!!");
-            console.log ("User logged in: ", userCredential.user);
+            sessionStorage.setItem("user",JSON.stringify(userCredential.user));
+            window.location.href = "startpg.html";
         }
-
-        sessionStorage.setItem("user",JSON.stringify(userCredential.user));
-
-        window.location.href = "startpg.html";
 
     } catch (error) {
         alert("Error: " + error.message);
