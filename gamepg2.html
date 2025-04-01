@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Banana Math Quiz Game</title>
+        <link rel="stylesheet" href="gamepg.css">
+        <script type="module" src="gamepg2.js"></script>
+    </head>
+    <body>
+        <div id="gameContainer">
+            <h1>🍌Banana Math Quiz🍌</h1>
+            <div id="userNameDisplay">Player: Loading...</div>
+            <div id="score">Score: 0</div>
+            <div id="timer">Time Left: 20s</div>
+            <div id="questionCount">Question: 1/5</div>
+
+            <div id="gameArea">
+                <div id="puzzleWrapper">
+                    <img id="monkey" src="./image/monkey.png" alt="Monkey">
+                    <img id="bananaBasket" src="./image/basket.png" alt="Banana Basket">
+                    <img id="puzzleImage" src="" alt="Loading Puzzle...">
+                </div>
+            </div>
+
+            <div>
+                <input type="number" id="answerInput" placeholder="Your answer">
+                <button class="gameButton" id="checkButton">Check</button>
+            </div>
+            <div id="feedback"></div>
+            <button class="gameButton" id="nextButton" style="display: none;">Next Question</button>
+        </div>
+
+        <div id="gameOverScreen">
+            <h2>Game Over!</h2>
+            <p id="gameOverMessage"></p>
+            <button class="gameButton" id="newGameButton">New Game</button>
+            <button class="gameButton" id="changeLevelButton">Change Level</button>
+        </div>
+
+    </body>
+</html>
