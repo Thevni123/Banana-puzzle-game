@@ -79,6 +79,7 @@ authForm.addEventListener("submit", async (e) => {
             window.location.href = "startpg.html";
         }
 
+
     } catch (error) {
         alert("Error: " + error.message);
         console.error("Authentication Error: ", error);
@@ -87,24 +88,18 @@ authForm.addEventListener("submit", async (e) => {
 
 googleLoginBtn.addEventListener("click", async () => {
     try{
-        const result = await signInWithPopup(auth,provider);
+        const result = await signInWithPopup(auth, provider);
         const user = result.user;
-
-        await set(ref(db, 'user/' + user.uid),{
+        await set(ref(db, 'users/' + user.uid), {
             username: user.displayName || "Google User",
             email: user.email
         });
-
         alert("Google login successful..!!");
-        console.log("User log in google: ",user);
-
         sessionStorage.setItem("user", JSON.stringify(user));
-
         window.location.href = "startpg.html";
-
-    }catch (error){
-        alert("Google login error: "+error.message);
-        console.error("Google login error: ",error);
+    } catch (error) {
+        alert("Google login error: " + error.message);
+        console.error("Google login error: ", error);
     }
 });
 
