@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchPuzzle();
 
     document.getElementById("checkButton").addEventListener("click", checkAnswer);
-    document.getElementById("nextButton").addEventListener("click", nextQuestion);
+    document.getElementById("nextButton").addEventListener("click",nextQuestion);
 
     const newGameButton = document.getElementById("newGameButton");
     const changeLevelButton = document.getElementById("changeLevelButton");
@@ -38,12 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
         newGameButton.addEventListener("click", resetGame);
     }
 
-    if (changeLevelButton) {
+    if(changeLevelButton){
         changeLevelButton.addEventListener("click", changeLevel);
     }
 });
 
-function startTimer() {
+function startTimer(){
     clearInterval(timer);
     timeLeft = 10;
     document.getElementById("timer").textContent = `Time Left: ${timeLeft}s`;
@@ -51,7 +51,7 @@ function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById("timer").textContent = `Time Left: ${timeLeft}s`;
-        if (timeLeft <= 0) {
+        if (timeLeft <= 0){
             clearInterval(timer);
             gameOver("⏰ Time's up! Try again.");
         }
@@ -64,7 +64,7 @@ function gameOver(message) {
     document.getElementById("gameOverMessage").textContent = message;
 }
 
-function resetGame() {
+function resetGame(){
     score = 0;
     questionCount = 1;
     monkeyJumpStep = 0;
@@ -81,37 +81,37 @@ function resetGame() {
     fetchPuzzle();
 }
 
-function changeLevel() {
+function changeLevel(){
     alert("Changing Level...");
     window.location.href = "levelpg.html";
 }
 
-function fetchPuzzle() {
-    if (questionCount > maxQuestions) {
-        gameOver(`🎉 You completed the game! Your final score: ${score}`);
+function fetchPuzzle(){
+    if(questionCount > maxQuestions) {
+        gameOver(`🎉 You compleate the game! Your final score: ${score}`);
         return;
     }
 
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
     fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data && data.question && (data.solution !== undefined)) {
-                document.getElementById("puzzleImage").src = data.question;
-                correctSolution = data.solution;
-                document.getElementById("feedback").textContent = "";
-                document.getElementById("answerInput").value = "";
-                document.getElementById("nextButton").style.display = "none";
-                document.getElementById("questionCount").textContent = `Question: ${questionCount} / ${maxQuestions}`;
-                startTimer();
-            } else {
-                document.getElementById("feedback").textContent = "Invalid puzzle data received.";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching puzzle:", error);
-            document.getElementById("feedback").textContent = "Failed to load puzzle.";
-        });
+    .then(response => response.json())
+    .then(data => {
+        if(data && data.question && (data.solution !== undefined)){
+            document.getElementById("puzzleImage").src = data.question;
+            correctSolution = data.solution;
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("answerInput").value = "";
+            document.getElementById("nextButton").style.display = "none";
+            document.getElementById("questionCount").textContent = `Question: ${questionCount} / ${maxQuestions}`;
+            startTimer();
+        } else {
+            document.getElementById("feedback").textContent = "Invalid puzzle data received.";
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching puzzle:", error);
+        document.getElementById("feedback").textContent = "Failed to load puzzle.";
+    });
 }
 
 function checkAnswer() {
@@ -146,10 +146,10 @@ function checkAnswer() {
             .then((snapshot) => {
                 let previousScore = 0;
                 if (snapshot.exists() && snapshot.val().score !== undefined) {
-                    previousScore = snapshot.val().score;
+                    previousScore = snapshot.val().score; 
                 }
 
-                let totalScore = previousScore + 30;
+                let totalScore = previousScore + 30; 
 
                 return update(userRef, { score: totalScore });
             })
@@ -177,7 +177,23 @@ function checkAnswer() {
     }
 }
 
-function nextQuestion() {
+function nextQuestion(){
     questionCount++;
     fetchPuzzle();
 }
+
+onAuthStateChanged(auth, (user) => {
+    if(user){
+        const userRef = ref(db, 'users/' +user.uid);
+        get(userRef).then((snapshot) => {
+            if(snapshot.exists()){
+                document.getElementById("userNameDisplay").textContent = "Player: " + snapshot.val().username;
+            } else{
+                document.getElementById("UserNameDisplay").textContent = "Player: Anonymous";
+            }
+        });
+
+        }else{
+            window.location.href = "login.html";
+        }
+    });
