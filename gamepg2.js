@@ -169,7 +169,7 @@ function checkAnswer() {
             }, 500);
         }
     } else {
-        feedbackEl.textContent = "❌ Wrong answer! The monkey falls!";
+        feedbackEl.textContent = "❌ Wrong answer!";
         feedbackEl.style.color = "red";
         monkey.style.bottom = "0px";
         monkeyJumpStep = 0;
