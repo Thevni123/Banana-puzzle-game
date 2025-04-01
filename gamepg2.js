@@ -28,44 +28,44 @@ let monkeyJumpStep = 0;
 document.addEventListener("DOMContentLoaded", function () {
     fetchPuzzle();
 
-    document.getElementById("checkButton").addEventListener("click",checkAnswer);
-    document.getElementById("nextButton").addEventListener("click",nextQuestion);
-    
+    document.getElementById("checkButton").addEventListener("click", checkAnswer);
+    document.getElementById("nextButton").addEventListener("click", nextQuestion);
+
     const newGameButton = document.getElementById("newGameButton");
     const changeLevelButton = document.getElementById("changeLevelButton");
 
-    if(newGameButton){
-        newGameButton.addEventListener("click",resetGame);
+    if (newGameButton) {
+        newGameButton.addEventListener("click", resetGame);
     }
 
-    if(changeLevelButton){
-        changeLevelButton.addEventListener("click",changeLevel);
+    if (changeLevelButton) {
+        changeLevelButton.addEventListener("click", changeLevel);
     }
 });
 
-function startTimer(){
+function startTimer() {
     clearInterval(timer);
     timeLeft = 20;
     document.getElementById("timer").textContent = `Time Left: ${timeLeft}s`;
 
-    timer = setInterval( () => {
+    timer = setInterval(() => {
         timeLeft--;
-        document.getElementById("timer").textContent = `Time Left: ${timerLeft}s`;
-        if(timeLeft <= 0){
+        document.getElementById("timer").textContent = `Time Left: ${timeLeft}s`;
+        if (timeLeft <= 0) {
             clearInterval(timer);
-            GameOver(" Time's up! Try again.");
+            gameOver("⏰ Time's up! Try again.");
         }
     }, 1000);
 }
 
-function gameOver(message){
+function gameOver(message) {
     document.getElementById("gameContainer").style.display = "none";
     document.getElementById("gameOverScreen").style.display = "block";
     document.getElementById("gameOverMessage").textContent = message;
 }
 
-function resetGame(){
-    score = 0
+function resetGame() {
+    score = 0;
     questionCount = 1;
     monkeyJumpStep = 0;
 
@@ -81,119 +81,103 @@ function resetGame(){
     fetchPuzzle();
 }
 
-function changeLevel(){
+function changeLevel() {
     alert("Changing Level...");
     window.location.href = "levelpg.html";
 }
 
-function fetchPuzzle(){
-    if(questionCount > maxQuestions) {
-        gameOver(`🎉 You compleate the game! Your final score: ${score}`);
+function fetchPuzzle() {
+    if (questionCount > maxQuestions) {
+        gameOver(`🎉 You completed the game! Your final score: ${score}`);
         return;
     }
 
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
     fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-        if(data && data.question && (data.solution !== undefined)){
-            document.getElementById("puzzleImage").src = data.question;
-            correctSolution = data.solution;
-            document.getElementById("feedback").textContent = "";
-            document.getElementById("answerInput").value = "";
-            document.getElementById("nextButton").style.display = "none";
-            document.getElementById("questionCount").textContent = `Question: ${questionCount} / ${maxQuestions}`;
-            startTimer();
-        }else{
-            document.getElementById("feedback").textContent = "Invalid puzzle data received";
-        }
-    })
-    .catch(error => {
-        console.error("Error fetching puzzle:", error);
-        document.getElementById("feedback").textContent = "Failed to load puzzle";
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.question && (data.solution !== undefined)) {
+                document.getElementById("puzzleImage").src = data.question;
+                correctSolution = data.solution;
+                document.getElementById("feedback").textContent = "";
+                document.getElementById("answerInput").value = "";
+                document.getElementById("nextButton").style.display = "none";
+                document.getElementById("questionCount").textContent = `Question: ${questionCount} / ${maxQuestions}`;
+                startTimer();
+            } else {
+                document.getElementById("feedback").textContent = "Invalid puzzle data received.";
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching puzzle:", error);
+            document.getElementById("feedback").textContent = "Failed to load puzzle.";
+        });
 }
 
-function checkAnswer(){
-    const user = auth.currentUsers;
-    if(!user){
+function checkAnswer() {
+    const user = auth.currentUser;
+    if (!user) {
         alert("You need to be logged in to save your score.");
         return;
     }
 
     const userRef = ref(db, 'users/' + user.uid);
 
-    const userAnswer = parseInt(documrnt.getElementById("answerInput").value, 10);
+    const userAnswer = parseInt(document.getElementById("answerInput").value, 10);
     const feedbackEl = document.getElementById("feedback");
 
-    if(isNaN(userAnswer)) {
-        feedbackEl.textContent = "Please enter valid number!";
+    if (isNaN(userAnswer)) {
+        feedbackEl.textContent = "Please enter a valid number!";
         feedbackEl.style.color = "red";
         return;
     }
 
     let monkey = document.getElementById("monkey");
 
-    if(userAnswer === correctSolution){
+    if (userAnswer === correctSolution) {
         feedbackEl.textContent = "✅ Correct! Click 'Next Question'";
         feedbackEl.style.color = "darkgreen";
-        documrnt.getElementById("nextButton").style.display = "inline";
+        document.getElementById("nextButton").style.display = "inline";
         clearInterval(timer);
         score += 20;
         document.getElementById("score").textContent = `Score: ${score}`;
 
         get(userRef)
-                    .then((snapshot) => {
-                        let previousScore = 0;
-                        if (snapshot.exists() && snapshot.val().score !== undefined) {
-                            previousScore = snapshot.val().score; 
-                        }
-        
-                        let totalScore = previousScore + 20; 
-        
-                        return update(userRef, { score: totalScore });
-                    })
-                    .then(() => console.log("Score updated successfully"))
-                    .catch((error) => console.error("Error updating score:", error));
-        
-                monkeyJumpStep++;
-        
-                if (monkeyJumpStep <= 5) {
-                    monkey.style.bottom = `${monkeyJumpStep * 20}px`;
-                    monkey.style.left = `${monkeyJumpStep * 15}%`;
+            .then((snapshot) => {
+                let previousScore = 0;
+                if (snapshot.exists() && snapshot.val().score !== undefined) {
+                    previousScore = snapshot.val().score;
                 }
-        
-                if (monkeyJumpStep === 5) {
-                    setTimeout(() => {
-                        feedbackEl.textContent = "🎉 Monkey reached the bananas! Well done!";
-                    }, 500);
-                }
-            } else {
-                feedbackEl.textContent = "❌ Wrong answer! The monkey falls!";
-                feedbackEl.style.color = "red";
-                monkey.style.bottom = "0px";
-                monkeyJumpStep = 0;
-                gameOver("❌ Incorrect! Try again next time.");
-            }
+
+                let totalScore = previousScore + 20;
+
+                return update(userRef, { score: totalScore });
+            })
+            .then(() => console.log("Score updated successfully"))
+            .catch((error) => console.error("Error updating score:", error));
+
+        monkeyJumpStep++;
+
+        if (monkeyJumpStep <= 5) {
+            monkey.style.bottom = `${monkeyJumpStep * 20}px`;
+            monkey.style.left = `${monkeyJumpStep * 15}%`;
         }
-        
-        function nextQuestion(){
-            questionCount++;
-            fetchPuzzle();
+
+        if (monkeyJumpStep === 5) {
+            setTimeout(() => {
+                feedbackEl.textContent = "🎉 Monkey reached the bananas! Well done!";
+            }, 500);
         }
-        
-        onAuthStateChanged(auth, (user) => {
-            if(user){
-                const userRef = ref(db, 'users/' +user.uid);
-                get(userRef).then((snapshot) => {
-                    if(snapshot.exists()){
-                        document.getElementById("userNameDisplay").textContent = "Player: " + snapshot.val().username;
-                    } else{
-                        document.getElementById("UserNameDisplay").textContent = "Player: Anonymous";
-                    }
-                });
-        
-                }else{
-                    window.location.href = "login.html";
-                }
-            });
+    } else {
+        feedbackEl.textContent = "❌ Wrong answer! The monkey falls!";
+        feedbackEl.style.color = "red";
+        monkey.style.bottom = "0px";
+        monkeyJumpStep = 0;
+        gameOver("❌ Incorrect! Try again next time.");
+    }
+}
+
+function nextQuestion() {
+    questionCount++;
+    fetchPuzzle();
+}
