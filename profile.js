@@ -56,7 +56,7 @@ function animateScore(finalScore) {
         } else {
             clearInterval(interval);
         }
-    }, 30);
+    }, 1);
 }
 
 backMenuBtn.addEventListener("click", () => {
