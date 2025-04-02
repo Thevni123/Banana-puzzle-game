@@ -1,3 +1,45 @@
+function setThemeCookie(theme) {
+    document.cookie = `theme=${theme};path=/;max-age=31536000`; 
+}
+
+function getThemeFromCookie() {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'theme') {
+            return value;
+        }
+    }
+    return 'light';
+}
+
+function applyTheme(theme) {
+    const themeToggleButton = document.getElementById("theme-toggle-btn");
+    
+    if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        themeToggleButton.textContent = "Switch to Light Mode"; 
+    } else {
+        document.body.classList.add('light-mode');
+        document.body.classList.remove('dark-mode');
+        themeToggleButton.textContent = "Switch to Dark Mode"; 
+    }
+}
+
+document.getElementById("theme-toggle-btn").addEventListener("click", () => {
+    const currentTheme = getThemeFromCookie();
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setThemeCookie(newTheme);
+    applyTheme(newTheme);
+});
+
+window.onload = () => {
+    const theme = getThemeFromCookie();
+    applyTheme(theme);
+};
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";

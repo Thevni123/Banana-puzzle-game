@@ -1,6 +1,15 @@
+body.light-mode {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(120deg, #c9f1e5, #96e6a1);
     text-align: center;
     margin: 0;
     padding: 0;
@@ -64,6 +73,25 @@ body {
 }
 
 #back-menu-btn:hover {
+    transform: scale(1.1);
+    background: #0f5511;
+}
+
+#theme-toggle-btn {
+    background: #146713;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+#theme-toggle-btn:hover {
     transform: scale(1.1);
     background: #0f5511;
 }
