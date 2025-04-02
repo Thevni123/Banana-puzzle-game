@@ -3,15 +3,15 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDqij1SpGmliK3dHvQfcS06G4v3p6LOIZI",
-    authDomain: "bananagame-a928d.firebaseapp.com",
-    databaseURL: "https://bananagame-a928d-default-rtdb.firebaseio.com",
-    projectId: "bananagame-a928d",
-    storageBucket: "bananagame-a928d.firebasestorage.app",
-    messagingSenderId: "789797675924",
-    appId: "1:789797675924:web:efd5056f7373888500a581",
-    measurementId: "G-FVL7B019DY"
-};
+    apiKey: "AIzaSyDx9rDw-XrAsA7Elt9BKcU0DdV_SJE-CI0",
+    authDomain: "bananamathgame-de86d.firebaseapp.com",
+    databaseURL: "https://bananamathgame-de86d-default-rtdb.firebaseio.com/",
+    projectId: "bananamathgame-de86d",
+    storageBucket: "bananamathgame-de86d.firebasestorage.app",
+    messagingSenderId: "875972546489",
+    appId: "1:875972546489:web:f7c5adc6aa281126017068",
+    measurementId: "G-HTTPFDPK2X"
+  };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
