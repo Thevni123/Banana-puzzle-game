@@ -4,6 +4,25 @@ body{
     background-color: #c3efcd;
 }
 
+#backButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #07a007;
+    color: wheat;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#backButton:hover {
+    background-color: #66d762;
+    color: black;
+} 
+
 #question{
     font-size: 24px;
     margin: 20px;

@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if(changeLevelButton){
         changeLevelButton.addEventListener("click", changeLevel);
     }
+
+    document.getElementById("backButton").addEventListener("click", function () {
+        window.location.href = "levelpg.html";
+    });
 });
 
 function startTimer(){
