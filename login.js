@@ -1,3 +1,12 @@
+//Code was written with the help of chat-gpt
+//https://youtu.be/Uhbn1KmiNbg?si=TkDpJn7LDMJgEppU
+//https://youtu.be/2crtIMKf9bs?si=FzZhJernFq5Ft1F2
+//https://youtu.be/D2DHNbnUTwc?si=59Y8yBkrwQyqFkzO
+//https://firebase.google.com/docs/web/setup
+//https://firebase.google.com/docs/auth/web/start
+//https://firebase.google.com/docs/auth/web/start
+//https://firebase.google.com/docs/database/web/start
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
@@ -71,7 +80,7 @@ authForm.addEventListener("submit", async (e) => {
             toggleBtn.textContent = "Don't have an account? Sign up";
             usernameField.style.display = "none";
             return;
-
+//https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
         }else{
             userCredential = await signInWithEmailAndPassword(auth,email,password);
             alert("Login Successful..!!");

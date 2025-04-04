@@ -1,3 +1,6 @@
+//Code was written with the help of chat-gpt
+//https://firebase.google.com/docs/web/setup
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
@@ -96,6 +99,7 @@ function fetchPuzzle(){
         return;
     }
 
+    //https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
     const apiUrl = "https://marcconrad.com/uob/banana/api.php";
     fetch(apiUrl)
     .then(response => response.json())

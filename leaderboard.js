@@ -1,3 +1,6 @@
+//Code was written with the help of chat-gpt
+//https://firebase.google.com/docs/web/setup
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 

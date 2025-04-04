@@ -1,3 +1,6 @@
+//Code was written with the help of chat-gpt
+//https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+
 function checkSession(){
     const user = sessionStorage.getItem("user");
     if(!user){
@@ -24,6 +27,7 @@ function leaderBoard() {
     alert(`Open Leaderboard...!!`);
 }
 
+//https://stackoverflow.com/questions/52697055/how-to-use-sessionstorage-for-a-webpage-for-a-login-user
 function leaveGame(){
     if(confirm('Are you sure you want to logout?')) {
         sessionStorage.removeItem("user");

@@ -1,3 +1,6 @@
+//Code was written with the help of chat-gpt
+//https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+
 function checkSession(){
     const user = sessionStorage.getItem("user");
     if(!user){

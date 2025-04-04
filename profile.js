@@ -1,3 +1,7 @@
+//Code was written with the help of chat-gpt
+//https://stackoverflow.com/questions/70223314/how-can-i-save-cookies-for-dark-mode-and-light-mode-toggling
+//https://firebase.google.com/docs/web/setup
+
 function setThemeCookie(theme) {
     document.cookie = `theme=${theme};path=/;max-age=31536000`; 
 }
@@ -59,6 +63,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+//https://stackoverflow.com/questions/74721935/display-user-profile-information-from-firebase-real-time-database
 const userName = document.getElementById("user-name");
 const userEmail = document.getElementById("user-email");
 const userScore = document.getElementById("user-score");
